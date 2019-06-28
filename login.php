@@ -3,5 +3,5 @@ $hm = 'localhost';
 $db = 'publications';
 $un = 'jim';
 $pw = 'mypasswd';
-   
+    
 ?>
