@@ -1,5 +1,5 @@
 <?php // login.php
-$hm = 'localhost';
+$hn = 'localhost';
 $db = 'publications';
 $un = 'jim';
 $pw = 'mypasswd';
