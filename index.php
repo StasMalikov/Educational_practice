@@ -6,5 +6,9 @@
 	if ($conn->connect_error)
 		die($conn->connect_error);
 
-	$test
+	$test="";
+
+
+
+	$test2="";
 ?>
