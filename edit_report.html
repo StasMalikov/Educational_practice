@@ -20,7 +20,7 @@
         <hr>
 
         <h4>Заполнение ведомости</h4>
-
+        <hr>
         <div class='row'>
 
             <div class='col-md-12'>
@@ -31,10 +31,10 @@
                     <div class='col-md-1'>
 
                         <select class="form-control" id="ReportNumber">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          </select>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
 
                     </div>
 
@@ -46,20 +46,36 @@
                     </div>
                 </div>
 
-                <form>
-                    <div class="form-group">
-                        <label for="Faculty">Выберете факультет</label>
-                        <select class="form-control" id="Faculty">
-      <option>ФКН</option>
-      <option>ПММ</option>
-      <option>РГФ</option>
-    </select>
-
-
+                <hr>
+                <div class='row'>
+                    <div class='col-md-1'>
+                        <label>Факультет</label>
+                    </div>
+                    <div class='col-md-1'>
+                        <!-- вставка названия факультета -->
+                        <label><b id='faculty'>FKN</b></label>
                     </div>
 
-                    <button type="button" class="btn btn-primary">Создать ведомость</button>
-                </form>
+                    <div class='col-md-1'>
+                        <label>Курс</label>
+                    </div>
+                    <div class='col-md-1'>
+                        <!-- вставка курса -->
+                        <label><b id='kurs'>1</b></label>
+                    </div>
+
+                    <div class='col-md-1'>
+                        <label>Группа</label>
+                    </div>
+                    <div class='col-md-1'>
+                        <!-- вставка группы -->
+                        <label><b id='group'>1.1</b></label>
+                    </div>
+                </div>
+
+                <hr>
+
+
 
             </div>
 
