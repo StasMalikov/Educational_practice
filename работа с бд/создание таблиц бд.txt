@@ -1,0 +1,90 @@
+CREATE TABLE Students
+(
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(10),
+    Surname VARCHAR(10), 
+    Patronymic VARCHAR(10),
+    Faculty VARCHAR(30),
+    Kurs CHAR(1),
+    Class CHAR(4),
+    SubClass CHAR(2),
+    Status VARCHAR(10),
+    Gender CHAR(1)
+);
+
+CREATE TABLE Lecturers
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+	Name VARCHAR(10),
+    	Surname VARCHAR(10), 
+    	Patronymic VARCHAR(10),
+	Faculty VARCHAR(30),
+	Degree VARCHAR(15)
+	
+);
+
+CREATE TABLE Subjects
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+	Name VARCHAR(30)	
+);
+
+CREATE TABLE Attestations
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+	Number CHAR(1),
+        LecturerId INT,
+	SubjectId INT,
+        DateOfEvent Date,
+    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
+);
+
+
+CREATE TABLE FinalAttestations
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+        LecturerId INT,
+	SubjectId INT,
+        DateOfEvent Date,
+	Type CHAR(3),
+    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
+);
+
+CREATE TABLE Student_Subject
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+        StudentId INT,
+	SubjectId INT,
+    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
+);
+
+CREATE TABLE Lecturer_Subject
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+        LecturerId INT,
+	SubjectId INT,
+    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
+);
+
+CREATE TABLE Student_Attestation
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+        StudentId INT,
+	AttestationId INT,
+    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+	FOREIGN KEY (AttestationId)  REFERENCES Attestations (Id)
+);
+
+CREATE TABLE Student_FinalAttestation
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+        StudentId INT,
+	FinalAttestationId INT,
+    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
+);
+
