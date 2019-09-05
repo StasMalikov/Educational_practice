@@ -4,7 +4,7 @@ CREATE TABLE Students
     Name VARCHAR(10),
     Surname VARCHAR(10), 
     Patronymic VARCHAR(10),
-    Faculty VARCHAR(30),
+    Faculty VARCHAR(50),
     Kurs CHAR(1),
     Class CHAR(4),
     SubClass CHAR(2),
@@ -87,4 +87,14 @@ CREATE TABLE Student_FinalAttestation
     	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
 );
+
+
+INSERT INTO `students`(`Id`, `Name`, `Surname`, `Patronymic`, `Faculty`, `Kurs`, `Class`, `SubClass`, `Status`, `Gender`)
+VALUES
+(NULL, 'Семён', 'Семёнов', 'Семёнович', 'Факультет Компьютерных наук', '1', '2', '1', 'учащийся', 'м'),
+(NULL, 'Петр', 'Петров', 'Петрович', 'Факультет Компьютерных наук', '3', '4', '1', 'учащийся', 'м'),
+(NULL, 'Борис', 'Борисов', 'Алексеевич', 'Факультет Компьютерных наук', '2', '2', '1', 'учащийся', 'м'),
+(NULL, 'Катя', 'Белова', 'Сергеевна', 'Факультет Компьютерных наук', '2', '2', '1', 'учащийся', 'ж'),
+(NULL, 'Маша', 'Троекурова', 'Павловна', 'Факультет Прикладной математики и механики', '5', '2', '1', 'учащийся', 'ж'),
+(NULL, 'Сергей', 'Орлов', 'Иванович', 'Факультет Прикладной математики и механики', '1', '2', '1', 'учащийся', 'м');
 
