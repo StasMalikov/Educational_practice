@@ -1,2 +1,11 @@
 SELECT * FROM students JOIN student_subject ON students.Id=student_subject.StudentId 
 WHERE students.Kurs=1 AND students.Faculty='Computer science';
+
+SELECT DISTINCT Name FROM subjects JOIN
+(SELECT * FROM students JOIN student_subject ON students.Id=student_subject.StudentId 
+WHERE students.Kurs=1 AND students.Faculty='Computer science') AS res on subjects.Id=res.SubjectId;
+
+SELECT SubjectId FROM students JOIN student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs=1 AND students.Faculty='Computer science';
+
+SELECT DISTINCT Name FROM 
+(SELECT SubjectId FROM students JOIN student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs=1 AND students.Faculty='Computer science') as result JOIN subjects on result.SubjectID=subjects.Id;

@@ -72,20 +72,19 @@ $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
 if($subclass==""){
-    $query  = "SELECT DISTINCT Subjects.Name 
-    FROM (Students JOIN Student_Subject USING (StudentId))
-    JOIN Subjects USING (Id)
-    WHERE Students.Faculty='$faculty' AND Students.Kurs='$kurs' 
-    AND Students.Class='$class'";
+
+    $query  = "SELECT DISTINCT Name FROM 
+    (SELECT SubjectId FROM students JOIN
+     student_subject ON students.Id=student_subject.StudentId WHERE
+      students.Kurs='$kurs' AND students.Faculty='$faculty' AND Students.Class='$class') 
+      as result JOIN subjects on result.SubjectID=subjects.Id";
 }else{
-    $query  = "SELECT DISTINCT Subjects.Name 
-    FROM (Students JOIN Student_Subject USING (Id))
-    JOIN Subjects USING (SubjectId)
-    WHERE Students.Faculty='$faculty' AND Students.Kurs='$kurs' 
-    AND Students.Class='$class' AND Students.SubClass='$subclass'";
+    $query  = "SELECT DISTINCT Name FROM 
+    (SELECT SubjectId FROM students JOIN
+     student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs='$kurs' AND students.Faculty='$faculty' AND Students.Class='$class' AND Students.SubClass='$subclass') 
+      as result JOIN subjects on result.SubjectID=subjects.Id";
 }
 
-//Class FROM Students WHERE Faculty='$faculty' AND Kurs='$kurs' ORDER BY Class";
 $result = $conn->query($query);
 if (!$result) die($conn->error);
 
