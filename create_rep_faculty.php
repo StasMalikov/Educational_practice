@@ -26,7 +26,7 @@
                 <form method="post" action="create_rep_groups.php">
                     <div class="form-group">
                         <label for="faculty">Выберите факультет</label>
-                        <select class="form-control" id="faculty">
+                        <select class="form-control" name="faculty">
 
 <?php
  require_once 'login.php';
@@ -52,7 +52,7 @@
     </select>
 
     <label for="kurs">Выберите курс</label>
-                        <select class="form-control" id="kurs">
+                        <select class="form-control" name="kurs">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>

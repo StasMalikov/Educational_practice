@@ -1,0 +1,2 @@
+SELECT * FROM students JOIN student_subject ON students.Id=student_subject.StudentId 
+WHERE students.Kurs=1 AND students.Faculty='Computer science';

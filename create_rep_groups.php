@@ -1,9 +1,8 @@
 <?php
 $faculty=$_POST['faculty'];
 $kurs=$_POST['kurs'];
-?>
 
-
+echo <<<_END
 <html lang="ru">
 
 <head>
@@ -25,46 +24,15 @@ $kurs=$_POST['kurs'];
 
         <h4>Настройка ведомости</h4>
         <hr>
-        <div class='row'>
-
+        <form method="post" action="create_rep_subject.php">
+           <div class='row'>
+        
             <div class='col-md-12'>
-
-                <div class='row'>
-
-                    <div class='col-md-1'>
-                        <label>Дисциплина</label>
-                    </div>
-                    <div class='col-md-2'>
-                        <!-- вставка  дисциплины -->
-                        <label><b id='subject'>Математика</b></label>
-                    </div>
-
-
-                    <div class='col-md-2'> <label for="report_number">Номер аттестации</label>
-                    </div>
-                    <div class='col-md-1'>
-
-                        <select class="form-control" id="report_number">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-
-                    </div>
-
-                    <div class='col-md-1'>
-                        <label for="date">Дата</label>
-                    </div>
-                    <div class='col-md-2'>
-                        <input type="date" class="form-control" id="date">
-                    </div>
-                </div>
-
-                <hr>
                 <div class='row'>
                     <div class='col-md-1'>
                         <label>Факультет</label>
                     </div>
+                    
                     <div class='col-md-2'>
                         <!-- вставка названия факультета -->
                         <label><b id='faculty'>$faculty</b></label>
@@ -78,20 +46,59 @@ $kurs=$_POST['kurs'];
                         <label><b id='kurs'>$kurs</b></label>
                     </div>
 
-                    <div class='col-md-1'>
-                        <label>Группа</label>
-                    </div>
-                    <div class='col-md-1'>
-                        <!-- вставка группы -->
-                        <label><b id='group'>1.1</b></label>
-                    </div>
                 </div>
 
                 <hr>
 
+_END;
+
+require_once 'login.php';
+$conn = new mysqli($hn, $user, $password, $database);
+if ($conn->connect_error) die("Fatal Error");
+
+$query  = "SELECT DISTINCT Class FROM Students WHERE Faculty='$faculty' AND Kurs='$kurs' ORDER BY Class";
+$result = $conn->query($query);
+if (!$result) die("Fatal Error");
+
+$rows = $result->num_rows;
+if($rows==0){
+    echo <<< _END
+     <div class="alert alert-primary" role="alert" align='center'>
+  Отсутствуют данные для формирования ведомости, попробуйте указать другие данные на предыдущей  <a href="create_rep_faculty.php" class="alert-link">вкладке</a>
+    </div>'
+_END;
+
+}else
+{
+    echo '<label for="group">Выберите группу</label> <select class="form-control" name="group">';
+
+for ($j = 0 ; $j < $rows ; ++$j)
+{
+  $row = $result->fetch_array(MYSQLI_ASSOC);
+  echo '<option>'   . htmlspecialchars($row['Class'])   . '</option>';
+}
+
+$result->close();
+$conn->close();
+
+echo <<<_END
+                </select>
+
+                <label for="sub_group">Выберите подгруппу</label>
+                <select class="form-control" name="sub_group">
+                <option>-</option>
+                <option>1</option>
+                <option>2</option>
+                </select>
                 </div>
 
+                
         </div>
+        <hr>
+        <input type="hidden" name="faculty" value="$faculty">
+        <input type="hidden" name="kurs" value="$kurs">
+        <button type="submit" class="btn btn-primary">Продолжить настройку ведомости</button>
+        </form>
 
     </div>
 
@@ -101,3 +108,6 @@ $kurs=$_POST['kurs'];
 </body>
 
 </html>
+_END;
+}
+?>
