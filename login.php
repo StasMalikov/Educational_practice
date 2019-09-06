@@ -1,7 +1,7 @@
 <?php // login.php
 $hn = 'localhost';
-$db = 'publications';
-$un = 'jim';
-$pw = 'mypasswd';
+$database = 'university';
+$user = 'jim';
+$password = 'mypasswd';
     
 ?>

@@ -1,5 +1,5 @@
-<!doctype html>
 <html lang="ru">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <h2 align='center'>Аттестационная ведомость онлайн</h2>
         <hr>
         <ul class='list-inline list-unstyled'>
-            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_fuculty.php'>Добавление</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='edit_exist_report.html'>Редактирование</a></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</a></li>
         </ul>
@@ -23,53 +23,46 @@
         <div class='row'>
 
             <div class='col-md-6'>
-                <form>
+                <form method="post" action="create_rep_groups.php">
                     <div class="form-group">
                         <label for="faculty">Выберите факультет</label>
                         <select class="form-control" id="faculty">
-      <option>ФКН</option>
-      <option>ПММ</option>
-      <option>РГФ</option>
+
+<?php
+ require_once 'login.php';
+ $conn = new mysqli($hn, $user, $password, $database);
+ if ($conn->connect_error) die("Fatal Error");
+
+ $query  = "SELECT DISTINCT Faculty FROM Students";
+ $result = $conn->query($query);
+ if (!$result) die("Fatal Error");
+
+ $rows = $result->num_rows;
+
+ for ($j = 0 ; $j < $rows ; ++$j)
+ {
+
+   $row = $result->fetch_array(MYSQLI_ASSOC);
+   echo '<option>'   . htmlspecialchars($row['Faculty'])   . '</option>';
+ }
+
+ $result->close();
+ $conn->close();
+?>
     </select>
 
-                        <label for="stydy_year">Выберите курс</label>
-                        <select class="form-control" id="stydy_year">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-      <option>6</option>
-    </select>
+    <label for="kurs">Выберите курс</label>
+                        <select class="form-control" id="kurs">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
 
-                        <label for="group">Выберите группу</label>
-                        <select class="form-control" id="group">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-      <option>6</option>
-    </select>
-
-                        <label for="sub_group">Выберите подгруппу</label>
-                        <select class="form-control" id="sub_group">
-                        <option>-</option>
-                        <option>1</option>
-                        <option>2</option>
-    </select>
-
-                        <label for="subject">Выберите дисциплину</label>
-                        <select class="form-control" id="subject">
-      <option>Математика</option>
-      <option>Русский язык</option>
-      <option>Физика</option>
-    </select>
                     </div>
-
-
-                    <button type="button" class="btn btn-primary">Создать ведомость</button>
-                    <hr>
+                    <button type="submit" class="btn btn-primary">Продолжить настройку ведомости</button>
                 </form>
 
             </div>
@@ -84,3 +77,4 @@
 </body>
 
 </html>
+

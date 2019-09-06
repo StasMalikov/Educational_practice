@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+$faculty=$_POST['faculty'];
+$kurs=$_POST['kurs'];
+?>
+
+
 <html lang="ru">
 
 <head>
@@ -12,13 +17,13 @@
         <h2 align='center'>Аттестационная ведомость онлайн</h2>
         <hr>
         <ul class='list-inline list-unstyled'>
-            <li class="list-inline-item"><button type="button" class="btn btn-info btn-lg" title='Создание новой ведомости'>Добавление</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости'>Редактирование</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</button></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='edit_exist_report.html'>Редактирование</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</a></li>
         </ul>
         <hr>
 
-        <h4>Заполнение ведомости</h4>
+        <h4>Настройка ведомости</h4>
         <hr>
         <div class='row'>
 
@@ -62,7 +67,7 @@
                     </div>
                     <div class='col-md-2'>
                         <!-- вставка названия факультета -->
-                        <label><b id='faculty'>FKN</b></label>
+                        <label><b id='faculty'>$faculty</b></label>
                     </div>
 
                     <div class='col-md-2'>
@@ -70,7 +75,7 @@
                     </div>
                     <div class='col-md-1'>
                         <!-- вставка курса -->
-                        <label><b id='kurs'>1</b></label>
+                        <label><b id='kurs'>$kurs</b></label>
                     </div>
 
                     <div class='col-md-1'>
@@ -83,32 +88,8 @@
                 </div>
 
                 <hr>
-                <!-- закончена шапка -->
 
-                <div class='row'>
-                    <div class='col-md-8'>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">№</th>
-                                    <th scope="col">Фамилия Имя Отчество</th>
-                                    <th scope="col">Аттестационная оценка</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Иванов Иван Иванович</td>
-                                    <td><input type="number" min=0 max=50 class="form-control" id="example_input_email_1"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-                <button type="button" class="btn btn-primary">Сохранить ведомость</button>
-                <hr>
-                <!-- ниже не трогать -->
-            </div>
 
         </div>
 
