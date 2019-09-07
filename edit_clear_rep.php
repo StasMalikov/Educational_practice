@@ -1,4 +1,16 @@
-<!doctype html>
+<?php
+$faculty=$_POST['faculty'];
+$kurs=$_POST['kurs'];
+$class=$_POST['group'];
+$subclass=$_POST['sub_group'];
+$subject=$_POST['subject'];
+$point=".";
+if($subclass===""){
+    $point='';
+}
+
+
+echo <<< _END
 <html lang="ru">
 
 <head>
@@ -12,10 +24,10 @@
         <h2 align='center'>Аттестационная ведомость онлайн</h2>
         <hr>
         <ul class='list-inline list-unstyled'>
-            <li class="list-inline-item"><button type="button" class="btn btn-info btn-lg" title='Создание новой ведомости'>Добавление</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости'>Редактирование</button></li>
-            <li class="list-inline-item"><button type="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</button></li>
-        </ul>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Редактирование уже существующей ведомости' href='edit_exist_report.html'>Редактирование</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</a></li>
+    </ul>
         <hr>
 
         <h4>Заполнение ведомости</h4>
@@ -30,8 +42,7 @@
                         <label>Дисциплина</label>
                     </div>
                     <div class='col-md-2'>
-                        <!-- вставка  дисциплины -->
-                        <label><b id='subject'>Математика</b></label>
+                        <label><b id='subject'>$subject</b></label>
                     </div>
 
 
@@ -39,7 +50,7 @@
                     </div>
                     <div class='col-md-1'>
 
-                        <select class="form-control" id="report_number">
+                        <select class="form-control" name="report_number">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -51,7 +62,7 @@
                         <label for="date">Дата</label>
                     </div>
                     <div class='col-md-2'>
-                        <input type="date" class="form-control" id="date">
+                        <input type="date" class="form-control" name="date">
                     </div>
                 </div>
 
@@ -61,31 +72,65 @@
                         <label>Факультет</label>
                     </div>
                     <div class='col-md-2'>
-                        <!-- вставка названия факультета -->
-                        <label><b id='faculty'>FKN</b></label>
+                        <label><b id='faculty'>$faculty</b></label>
                     </div>
 
                     <div class='col-md-2'>
                         <label>Курс</label>
                     </div>
                     <div class='col-md-1'>
-                        <!-- вставка курса -->
-                        <label><b id='kurs'>1</b></label>
+                        <label><b id='kurs'>$kurs</b></label>
                     </div>
 
                     <div class='col-md-1'>
                         <label>Группа</label>
                     </div>
                     <div class='col-md-1'>
-                        <!-- вставка группы -->
-                        <label><b id='group'>1.1</b></label>
+                        <label><b id='group'>$class$point$subclass</b></label>
                     </div>
                 </div>
 
                 <hr>
-                <!-- закончена шапка -->
+_END;
 
-                <div class='row'>
+require_once 'login.php';
+$conn = new mysqli($hn, $user, $password, $database);
+if ($conn->connect_error) die("Fatal Error");
+
+if($subclass==""){
+    $query  = "SELECT Id,Name,Surname,Patronymic FROM 
+    (SELECT StudentId FROM Subjects JOIN
+     student_subject ON student_subject.SubjectId=Subjects.Id WHERE
+      Subjects.Name='$subject') 
+      as result JOIN Students on result.StudentId=Students.Id
+      WHERE
+      Students.Kurs='$kurs' AND Students.Faculty='$faculty' AND Students.Class='$class'";
+}else{
+    $query  = "SELECT Id,Name,Surname,Patronymic FROM 
+    (SELECT StudentId FROM Subjects JOIN
+     student_subject ON student_subject.SubjectId=Subjects.Id WHERE
+      Subjects.Name='$subject') 
+      as result JOIN Students on result.StudentId=Students.Id
+      WHERE
+      Students.Kurs='$kurs' AND Students.Faculty='$faculty' 
+      AND Students.Class='$class' AND Students.SubClass='$subclass'";
+}
+
+$result = $conn->query($query);
+if (!$result) die($conn->error);
+
+$rows = $result->num_rows;
+if($rows==0){
+    echo <<< _END
+     <div class="alert alert-primary" role="alert" align='center'>
+  Отсутствуют данные для формирования ведомости, попробуйте указать другие данные на <a href="create_rep_faculty.php" class="alert-link">вкладке</a>
+    </div>'
+_END;
+
+}else
+{
+echo <<< _END
+<div class='row'>
                     <div class='col-md-8'>
                         <table class="table">
                             <thead>
@@ -96,22 +141,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Иванов Иван Иванович</td>
-                                    <td><input type="number" min=0 max=50 class="form-control" id="example_input_email_1"></td>
-                                </tr>
+_END;
 
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Иванов Иван Иванович</td>
-                                    <td><input type="number" min=0 max=50 class="form-control" id="example_input_email_1"></td>
-                                </tr>
-                            </tbody>
+for ($j = 0 ; $j < $rows ; ++$j)
+{
+  $row = $result->fetch_array(MYSQLI_ASSOC);
+  echo '<tr>'.'<th scope="row">';
+  echo $j+1;
+  echo '</th>'.'<td>'.
+  htmlspecialchars($row['Name']).' '.
+  htmlspecialchars($row['Surname']).' '.
+  htmlspecialchars($row['Patronymic']).'</td>'.
+  '<td><input type="number" min=0 max=50 class="form-control" name="input_mark_'."$j".'"></td></tr>';
+//   <tr>
+//   <th scope="row">1</th>
+//   <td>Иванов Иван Иванович</td>
+//   <td><input type="number" min=0 max=50 class="form-control" id="input_mark_1"></td>
+// </tr>
+}
+
+echo <<< _END
+</tbody>
                         </table>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary">Сохранить ведомость</button>
+                <button type="action" class="btn btn-primary">Сохранить ведомость</button>
                 <hr>
                 <!-- ниже не трогать -->
             </div>
@@ -126,3 +180,6 @@
 </body>
 
 </html>
+_END;
+}
+?>
