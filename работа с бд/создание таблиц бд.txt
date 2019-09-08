@@ -75,6 +75,7 @@ CREATE TABLE Student_Attestation
 	Id INT PRIMARY KEY AUTO_INCREMENT,
         StudentId INT,
 	AttestationId INT,
+	Mark VARCHAR(2),
     	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (AttestationId)  REFERENCES Attestations (Id)
 );
@@ -84,6 +85,7 @@ CREATE TABLE Student_FinalAttestation
 	Id INT PRIMARY KEY AUTO_INCREMENT,
         StudentId INT,
 	FinalAttestationId INT,
+	Mark VARCHAR(10),
     	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
 );

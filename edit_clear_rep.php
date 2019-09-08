@@ -32,6 +32,7 @@ echo <<< _END
 
         <h4>Заполнение ведомости</h4>
         <hr>
+        <form method="post" action="write_rep_to_bd.php">
         <div class='row'>
 
             <div class='col-md-12'>
@@ -149,14 +150,16 @@ for ($j = 0 ; $j < $rows ; ++$j)
   echo '<tr>'.'<th scope="row">';
   echo $j+1;
   echo '</th>'.'<td>'.
-  htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Surname']).' '.
+  htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Patronymic']).'</td>'.
+  '<input type="hidden" name="input_student_'."$j". '"'. 'value="'.htmlspecialchars($row['Id']).'">'.
   '<td><input type="number" min=0 max=50 class="form-control" name="input_mark_'."$j".'"></td></tr>';
 //   <tr>
 //   <th scope="row">1</th>
 //   <td>Иванов Иван Иванович</td>
-//   <td><input type="number" min=0 max=50 class="form-control" id="input_mark_1"></td>
+//   <input type="hidden" name="input_student_0" value="212">
+//   <td><input type="number" min=0 max=50 class="form-control" id="input_mark_0"></td>
 // </tr>
 }
 
@@ -165,7 +168,11 @@ echo <<< _END
                         </table>
                     </div>
                 </div>
+                <input type="hidden" name="subject" value="$subject">
+                <input type="hidden" name="lecturerId" value="1">
+
                 <button type="action" class="btn btn-primary">Сохранить ведомость</button>
+                </form>
                 <hr>
                 <!-- ниже не трогать -->
             </div>
