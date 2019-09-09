@@ -35,7 +35,7 @@ CREATE TABLE Attestations
 	Number CHAR(1),
         LecturerId INT,
 	SubjectId INT,
-        DateOfEvent Date,
+        DateOfEvent VARCHAR(10),
     	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
 	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
 );

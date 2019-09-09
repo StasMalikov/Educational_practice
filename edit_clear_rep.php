@@ -170,6 +170,7 @@ echo <<< _END
                 </div>
                 <input type="hidden" name="subject" value="$subject">
                 <input type="hidden" name="lecturerId" value="1">
+                <input type="hidden" name="students_count" value="$rows">
 
                 <button type="action" class="btn btn-primary">Сохранить ведомость</button>
                 </form>
