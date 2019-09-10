@@ -3,6 +3,7 @@ $faculty=$_POST['faculty'];
 $kurs=$_POST['kurs'];
 $class=$_POST['group'];
 $subclass=$_POST['sub_group'];
+$user_name=$_POST['user_name'];
 
 $point=".";
 if($subclass==="-"){
@@ -25,12 +26,26 @@ echo <<<_END
 
         <h2 align='center'>Аттестационная ведомость онлайн</h2>
         <hr>
+        <div class='row'>
+        <div class='col-md-9'>
         <ul class='list-inline list-unstyled'>
-        <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='edit_exist_report.html'>Редактирование</a></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</a></li>
         </ul>
         <hr>
+        
+        </div>
+        <div class='col-md-3' align='right'>
+        <ul class='list-inline list-unstyled'>
+            <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg">Выход</a></li>
+        </ul>
+        <hr>
+        
+        </div>
+        
+        </div>
 
         <h4>Настройка ведомости</h4>
         <hr>
@@ -114,6 +129,7 @@ echo <<< _END
 <input type="hidden" name="kurs" value="$kurs">
 <input type="hidden" name="group" value="$class">
 <input type="hidden" name="sub_group" value="$subclass">
+<input type="hidden" name="user_name" value="$user_name">
 
 <button type="submit" class="btn btn-primary">Создать ведомость</button>
                     </div>
