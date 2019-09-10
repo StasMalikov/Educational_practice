@@ -9,7 +9,8 @@ CREATE TABLE Students
     Class CHAR(4),
     SubClass CHAR(2),
     Status VARCHAR(10),
-    Gender CHAR(1)
+    Login VARCHAR(20) UNIQUE,
+    Password VARCHAR(20)
 );
 
 CREATE TABLE Lecturers
@@ -19,7 +20,9 @@ CREATE TABLE Lecturers
     	Surname VARCHAR(10), 
     	Patronymic VARCHAR(10),
 	Faculty VARCHAR(30),
-	Degree VARCHAR(15)
+	Degree VARCHAR(15),
+    Login VARCHAR(20) UNIQUE,
+    Password VARCHAR(20)
 	
 );
 
@@ -88,6 +91,14 @@ CREATE TABLE Student_FinalAttestation
 	Mark VARCHAR(10),
     	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
+);
+
+CREATE TABLE Users
+(
+	Id INT PRIMARY KEY AUTO_INCREMENT,
+	Login VARCHAR(20),
+	Password VARCHAR(20),
+	Type VARCHAR(10)
 );
 
 
