@@ -18,7 +18,7 @@ echo <<< _END
         <div class='row'>
         <div class='col-md-9'>
         <ul class='list-inline list-unstyled'>
-            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
+            <li class="list-inline-item"><button type="submit" role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</button></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='edit_exist_report.html'>Редактирование</a></li>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей'>Просмотр</a></li>
         </ul>
@@ -28,7 +28,7 @@ echo <<< _END
         <div class='col-md-3' align='right'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg">Выход</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='loggin.html'>Выход</a></li>
         </ul>
         <hr>
         
