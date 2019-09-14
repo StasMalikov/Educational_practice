@@ -10,7 +10,7 @@ CREATE TABLE Students
     SubClass CHAR(2),
     Status VARCHAR(10),
     Login VARCHAR(20) UNIQUE,
-    Password VARCHAR(20)
+    Password VARCHAR(13)
 );
 
 CREATE TABLE Lecturers
@@ -22,7 +22,7 @@ CREATE TABLE Lecturers
 	Faculty VARCHAR(30),
 	Degree VARCHAR(15),
     Login VARCHAR(20) UNIQUE,
-    Password VARCHAR(20)
+    Password VARCHAR(13)
 	
 );
 

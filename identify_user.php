@@ -1,52 +1,49 @@
 <?php
-$login=$_POST['login'];
-$pswd=$_POST['password'];
-$type="";
+$login = $_POST['login'];
+$pswd = $_POST['password'];
+$type = "";
+
+session_start();
+
+$_SESSION['user_name'] = $login;
+
+$crypt_passwd = crypt($pswd, $login);
 
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
-$query  = "SELECT Password FROM Students WHERE Login='$login'";
+$query  = "SELECT Id,Password FROM Students WHERE Login='$login'";
 $result = $conn->query($query);
 if (!$result) die("Fatal Error");
 
-$rows = $result->num_rows;
+if ($result->num_rows == 0) {
 
-if($rows==0){
+    $query  = "SELECT Id,Password FROM Lecturers WHERE Login='$login'  ";
 
-    $query  = "SELECT Password FROM Lecturers WHERE Login='$login'";
     $result = $conn->query($query);
     if (!$result) die("Fatal Error");
-    $row = $result->fetch_array(MYSQLI_ASSOC);
-    
-    if( $pswd == htmlspecialchars($row['Password'])){
 
-        $url = 'http://localhost/Educational_practice/create_rep_faculty.php';
-        $params = array(
-        'user_name' => "$login"
-        );
-        $result = file_get_contents($url, false, stream_context_create(array(
-        'http' => array(
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/x-www-form-urlencoded',
-        'content' => http_build_query($params)
-        )
-        )));
- 
-        echo $result;
+    if ($result->num_rows == 0) {
+        header('Location: http://localhost/Educational_practice/loggin_notification.html');
+     } else {
 
-    }else{
-        echo 'Неправильный пароль';
+        $row = $result->fetch_array(MYSQLI_ASSOC);
+
+        if ($crypt_passwd == htmlspecialchars($row['Password'])) {
+            $_SESSION['type']='lecturer';
+            $_SESSION['Id']=htmlspecialchars($row['Id']);
+            header('Location: http://localhost/Educational_practice/create_rep_faculty.php');
+        } else {
+            header('Location: http://localhost/Educational_practice/loggin_notification.html');
+        }
     }
-
-}else{
-
+} else {
     $row = $result->fetch_array(MYSQLI_ASSOC);
-    if( $pswd == htmlspecialchars($row['Password'])){
-
-    }else{
-        echo 'Неправильный пароль';
+    if ($crypt_passwd == htmlspecialchars($row['Password'])) {
+        $_SESSION['type']='student';
+        $_SESSION['Id']=htmlspecialchars($row['Id']);
+     } else {
+        header('Location: http://localhost/Educational_practice/loggin_notification.html');
     }
 }
-?>

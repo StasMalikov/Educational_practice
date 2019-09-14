@@ -1,9 +1,10 @@
 <?php
+session_start();
+$user_name=$_SESSION['user_name'];
 $att_num = $_POST['report_number'];
 $subj_name = $_POST['subject'];
 $att_date = $_POST['date'];
 $students_count = $_POST['students_count'];
-$user_name=$_POST['user_name'];
 
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
@@ -18,12 +19,7 @@ $rows = $result->num_rows;
 $row = $result->fetch_array(MYSQLI_ASSOC);
 $subj_id = htmlspecialchars($row['Id']);
 
-$query = "SELECT Id FROM Lecturers WHERE Login='$user_name'";
-$result = $conn->query($query);
-if (!$result) die($conn->error);
-$row = $result->fetch_array(MYSQLI_ASSOC);
-$lecturerId = htmlspecialchars($row['Id']);
-
+$lecturerId = $_SESSION['Id'];
 
 $query = "INSERT INTO Attestations VALUES(NULL,$att_num,$lecturerId,$subj_id,'$att_date')";
 $result = $conn->query($query);
