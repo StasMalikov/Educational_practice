@@ -43,6 +43,9 @@ if ($result->num_rows == 0) {
     if ($crypt_passwd == htmlspecialchars($row['Password'])) {
         $_SESSION['type']='student';
         $_SESSION['Id']=htmlspecialchars($row['Id']);
+        $_SESSION['user_name'] = $login;
+        header('Location: http://localhost/Educational_practice/student_index.php');
+
      } else {
         header('Location: http://localhost/Educational_practice/loggin_notification.html');
     }
