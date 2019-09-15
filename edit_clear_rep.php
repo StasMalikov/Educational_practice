@@ -174,7 +174,7 @@ for ($j = 0 ; $j < $rows ; ++$j)
   htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Patronymic']).'</td>'.
   '<input type="hidden" name="input_student_'."$j". '"'. 'value="'.htmlspecialchars($row['Id']).'">'.
-  '<td><input type="number" min=0 max=50 class="form-control" name="input_mark_'."$j".'"></td></tr>';
+  '<td><input type="number" required min=0 max=50 class="form-control" name="input_mark_'."$j".'"></td></tr>';
 //   <tr>
 //   <th scope="row">1</th>
 //   <td>Иванов Иван Иванович</td>

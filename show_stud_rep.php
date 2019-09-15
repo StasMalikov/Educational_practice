@@ -92,7 +92,6 @@ echo '<td>'.htmlspecialchars($row['Number']).'</td>';
 echo '<td>'.substr(htmlspecialchars($row['DateOfEvent']),0,10).'</td>';
 echo '<td>'.htmlspecialchars($row['Mark']).'</td>';
 echo '</tr>';
-//   htmlspecialchars($row['Surname']).
 }
 
 if($rows==0){
