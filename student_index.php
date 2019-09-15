@@ -23,7 +23,7 @@ echo <<< _END
         <div class='row'>
             <div class='col-md-9'>
                 <ul class='list-inline list-unstyled'>
-                    <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Главная' href='#'>Просмотр ведомости</a></li>
+                    <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Главная' href='student_index.php'>Просмотр ведомости</a></li>
                 </ul>
                 <hr>
 
@@ -42,13 +42,17 @@ echo <<< _END
         <h4>Выберите параметры для поиска ведомости</h4>
 
         <hr>
+
+        <form method="post" action="show_stud_rep.php">
         <div class='row'>
         
         <div class='col-md-6'>
 
         <label for="faculty">Выберите предмет</label>
-                        <select class="form-control" id="faculty">
+                        <select class="form-control" name="subject">
 _END;
+
+
 $StudId=$_SESSION['Id'];
 
 require_once 'login.php';
@@ -72,9 +76,13 @@ if($rows==0){}else{
 }
 echo <<< _END
         </select>
-
+        <hr>
+        <button type="submit" class="btn btn-primary">Найти ведомость</button>
         </div>
+        
+        </form>
         </div>
+        
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
