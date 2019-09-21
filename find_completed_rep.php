@@ -55,7 +55,7 @@ echo <<< _END
         
         </div>
 
-        <h4>Заполнение ведомости</h4>
+        <h4>Выбор ведомости для редактирования</h4>
         <hr>
         <div class='row'>
             <div class='col-md-12'>
@@ -66,6 +66,9 @@ echo <<< _END
                 <table class="table">
                             <thead>
                                 <tr>
+                                    <th>Факультет</th>
+                                    <th>Курс</th>
+                                    <th>Группа</th>
                                     <th scope="col">Предмет</th>
                                     <th scope="col">№ Аттестации</th>
                                     <th scope="col">Дата</th>
@@ -77,15 +80,37 @@ _END;
 
 for ($j = 0 ; $j < $rows ; ++$j)
 {
+
   $row = $result->fetch_array(MYSQLI_ASSOC);
+  $id=htmlspecialchars($row['Id']);
+
+  $query2 = "SELECT Faculty,Class,Kurs FROM Students JOIN
+  (SELECT StudentId FROM Student_Attestation WHERE AttestationId='$id')as result
+  ON Students.Id=result.StudentId";
+  
+  $result2 = $conn->query($query2);
+  if (!$result2) die($conn->error);
+  
+  $row2 = $result2->fetch_array(MYSQLI_ASSOC);
 
 echo '<form method="post" action="edit_completed_rep.php">';
 
 echo   '<input type="hidden" name="att_id" value="'.htmlspecialchars($row['Id']).'">'; 
 echo '<tr>';
+
+echo '<td>'.htmlspecialchars($row2['Faculty']).'</td>';
+echo   '<input type="hidden" name="Faculty" value="'.htmlspecialchars($row2['Faculty']).'">';
+
+echo '<td>'.htmlspecialchars($row2['Kurs']).'</td>';
+echo   '<input type="hidden" name="Kurs" value="'.htmlspecialchars($row2['Kurs']).'">';
+echo '<td>'.htmlspecialchars($row2['Class']).'</td>';
+echo   '<input type="hidden" name="Class" value="'.htmlspecialchars($row2['Class']).'">';
 echo '<td>'.htmlspecialchars($row['Name']).'</td>';
+echo   '<input type="hidden" name="Name" value="'.htmlspecialchars($row['Name']).'">';
 echo '<td>'.htmlspecialchars($row['Number']).'</td>';
+echo   '<input type="hidden" name="Number" value="'.htmlspecialchars($row['Number']).'">';
 echo '<td>'.substr(htmlspecialchars($row['DateOfEvent']),0,10).'</td>';
+echo   '<input type="hidden" name="DateOfEvent" value="'.htmlspecialchars($row['DateOfEvent']).'">';
 echo '<td><button type="submit" class="btn btn-primary">Редактировать</button></td>';
 echo '</tr>';
 

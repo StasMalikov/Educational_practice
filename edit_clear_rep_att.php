@@ -125,7 +125,7 @@ if($subclass==""){
       Subjects.Name='$subject') 
       as result JOIN Students on result.StudentId=Students.Id
       WHERE
-      Students.Kurs='$kurs' AND Students.Faculty='$faculty' AND Students.Class='$class'";
+      Students.Kurs='$kurs' AND Students.Faculty='$faculty' AND Students.Class='$class' ORDER BY Students.Surname";
 }else{
     $query  = "SELECT Id,Name,Surname,Patronymic FROM 
     (SELECT StudentId FROM Subjects JOIN
@@ -134,7 +134,7 @@ if($subclass==""){
       as result JOIN Students on result.StudentId=Students.Id
       WHERE
       Students.Kurs='$kurs' AND Students.Faculty='$faculty' 
-      AND Students.Class='$class' AND Students.SubClass='$subclass'";
+      AND Students.Class='$class' AND Students.SubClass='$subclass' ORDER BY Students.Surname";
 }
 
 $result = $conn->query($query);
