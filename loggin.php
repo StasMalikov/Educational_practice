@@ -3,6 +3,12 @@ session_start();
 unset($_SESSION['user_name']);
 unset($_SESSION['Id']);
 unset($_SESSION['type']);
+
+unset($_SESSION['faculty']);
+unset($_SESSION['kurs']);
+unset($_SESSION['group']);
+unset($_SESSION['sub_group']);
+unset($_SESSION['subject']);
 ?>
 <html lang="ru">
 
