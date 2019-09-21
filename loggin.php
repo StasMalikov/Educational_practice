@@ -28,7 +28,7 @@ unset($_SESSION['type']);
                 <form method="post" action="identify_user.php">
                     <div class="form-group">
                         <label for="login">Логин</label>
-                        <input class="form-control" name="login" aria-describedby="emailHelp" placeholder="Логин" value='Kate@student'>
+                        <input class="form-control" name="login" aria-describedby="emailHelp" placeholder="Логин" value='user3'>
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
