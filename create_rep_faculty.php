@@ -1,10 +1,10 @@
 <?php
 session_start();
 
+// проверка пользователя
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');
 }
-
 $user_name=$_SESSION['user_name'];
 
 echo <<< _END
@@ -13,6 +13,7 @@ echo <<< _END
 
 <head>
     <meta charset="utf-8">
+    <title>Аттестационная ведомость онлайн</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -53,16 +54,17 @@ echo <<< _END
                         <select class="form-control" name="faculty">
 
 _END;
+
  require_once 'login.php';
  $conn = new mysqli($hn, $user, $password, $database);
  if ($conn->connect_error) die("Fatal Error");
-
+// Загружаем список факультетов
  $query  = "SELECT DISTINCT Faculty FROM Students";
  $result = $conn->query($query);
  if (!$result) die("Fatal Error");
 
  $rows = $result->num_rows;
-
+// в цикле выводим этот список
  for ($j = 0 ; $j < $rows ; ++$j)
  {
 
@@ -70,6 +72,7 @@ _END;
    echo '<option>'   . htmlspecialchars($row['Faculty'])   . '</option>';
  }
 
+ //закрываем соединение с базой данных
  $result->close();
  $conn->close();
 echo <<< _END

@@ -21,6 +21,7 @@ echo <<< _END
 
 <head>
     <meta charset="utf-8">
+    <title>Аттестационная ведомость онлайн</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -118,6 +119,7 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+//получаем список студентов для выбранного предмета на основании данных с предыдущих страниц
 if($subclass==""){
     $query  = "SELECT Id,Name,Surname,Patronymic FROM 
     (SELECT StudentId FROM Subjects JOIN
@@ -164,6 +166,9 @@ echo <<< _END
                             <tbody>
 _END;
 
+// выводим студентов в таблицу
+// при этом прячем id студентов в скрытый input, который будет отправлен post запросом
+
 for ($j = 0 ; $j < $rows ; ++$j)
 {
   $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -190,7 +195,6 @@ echo <<< _END
                 </div>
                 <input type="hidden" name="subject" value="$subject">
                 <input type="hidden" name="students_count" value="$rows">
-                <input type="hidden" name="user_name" value="$user_name">
 
                 <button type="action" class="btn btn-primary">Сохранить ведомость</button>
                 </form>
@@ -210,4 +214,6 @@ echo <<< _END
 </html>
 _END;
 }
+$result->close();
+$conn->close();
 ?>

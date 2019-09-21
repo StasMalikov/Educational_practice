@@ -10,6 +10,7 @@ $class=$_POST['group'];
 $subclass=$_POST['sub_group'];
 $user_name=$_SESSION['user_name'];
 
+// работа с отображением или неотображением подгруппы
 $point=".";
 if($subclass==="-"){
     $subclass='';
@@ -23,6 +24,7 @@ echo <<<_END
 
 <head>
     <meta charset="utf-8">
+    <title>Аттестационная ведомость онлайн</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -87,7 +89,8 @@ _END;
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
-
+// получаем список дисциплин для с учётом курса, группы, подгруппы(или полной группы) ((subclass=подгруппа))
+// join запросы т.к. отношения многие ко многим
 if($subclass==""){
 
     $query  = "SELECT DISTINCT Name FROM 
@@ -98,7 +101,8 @@ if($subclass==""){
 }else{
     $query  = "SELECT DISTINCT Name FROM 
     (SELECT SubjectId FROM students JOIN
-     student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs='$kurs' AND students.Faculty='$faculty' AND Students.Class='$class' AND Students.SubClass='$subclass') 
+     student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs='$kurs' AND 
+     students.Faculty='$faculty' AND Students.Class='$class' AND Students.SubClass='$subclass') 
       as result JOIN subjects on result.SubjectId=subjects.Id";
 }
 
@@ -126,6 +130,8 @@ for ($j = 0 ; $j < $rows ; ++$j)
   $row = $result->fetch_array(MYSQLI_ASSOC);
   echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
 }
+
+// отправляем данные, полученные на предыдущих страничках в скрытых инпутах post запросом дальше...  
 echo <<< _END
 </select>
 <hr>
@@ -155,4 +161,7 @@ echo <<< _END
 </html>
 _END;
 }
+
+$result->close();
+$conn->close();
 ?>

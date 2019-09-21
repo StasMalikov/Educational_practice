@@ -17,6 +17,8 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+
+// получем id предмета
 $query = "SELECT Id FROM Subjects WHERE Name='$subj_name'";
 
 $result = $conn->query($query);
@@ -26,10 +28,12 @@ $rows = $result->num_rows;
 $row = $result->fetch_array(MYSQLI_ASSOC);
 $subj_id = htmlspecialchars($row['Id']);
 
+// создаём аттестацию
     $query = "INSERT INTO Attestations VALUES(NULL,$att_num,$lecturerId,$subj_id,'$att_date')";
     $result = $conn->query($query);
     $att_insertId = $conn->insert_id;
     
+    // проставляем оценки студентам по аттестации, id студентов берём из скрытых input'ов
     for ($j = 0; $j < $students_count; ++$j) {
     
         $post_id_name = 'input_student_' . "$j";
@@ -41,11 +45,14 @@ $subj_id = htmlspecialchars($row['Id']);
         $query = "INSERT INTO student_attestation VALUES(NULL,$stud_id,$att_insertId,$stud_mark)";
         $result = $conn->query($query);
     }
+
+    // шапка сайта + сообщение о сохранении ведомости
     echo <<< _END
     <html lang="ru">
     
     <head>
         <meta charset="utf-8">
+        <title>Аттестационная ведомость онлайн</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     
@@ -87,4 +94,6 @@ $subj_id = htmlspecialchars($row['Id']);
     </html>
 _END;
 
+$result->close();
+$conn->close();
  ?>

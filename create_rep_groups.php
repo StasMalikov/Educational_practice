@@ -4,7 +4,7 @@ session_start();
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');
 }
-
+// используем данные с предыдущей странички для запросов
 $faculty=$_POST['faculty'];
 $kurs=$_POST['kurs'];
 $user_name=$_SESSION['user_name'];
@@ -13,6 +13,7 @@ echo <<<_END
 <html lang="ru">
 
 <head>
+<title>Аттестационная ведомость онлайн</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -77,7 +78,7 @@ _END;
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
-
+// получаем список  групп, для выбранного факультета и курса
 $query  = "SELECT DISTINCT Class FROM Students WHERE Faculty='$faculty' AND Kurs='$kurs' ORDER BY Class";
 $result = $conn->query($query);
 if (!$result) die("Fatal Error");

@@ -1,6 +1,6 @@
 <?php
-$login = $_POST['login'];
-$pswd = $_POST['password'];
+$login = htmlentities($_POST['login']);
+$pswd = htmlentities($_POST['password']);
 $type = "";
 
 session_start();
@@ -50,3 +50,7 @@ if ($result->num_rows == 0) {
         header('Location: http://localhost/Educational_practice/loggin_notification.html');
     }
 }
+
+$result->close();
+$conn->close();
+?>

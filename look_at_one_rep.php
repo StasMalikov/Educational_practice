@@ -29,6 +29,7 @@ echo <<< _END
 
 <head>
     <meta charset="utf-8">
+    <title>Аттестационная ведомость онлайн</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -60,7 +61,6 @@ echo <<< _END
 
         <h4>Просмотр ведомости</h4>
         <hr>
-        <form method="post" action="write_edited_rep_to_bd.php">
         <div class='row'>
 
             <div class='col-md-12'>
@@ -143,7 +143,6 @@ for ($j = 0 ; $j < $rows ; ++$j)
   htmlspecialchars($row['Surname']).' '.
   htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Patronymic']).'</td>'.
-  '<input type="hidden" name="input_student_'."$j". '"'. 'value="'.htmlspecialchars($row['Id']).'">'.
   '<td><label><b>'.htmlspecialchars($row['Mark']).'</b></label></td></tr>';
 }
 echo <<< _END
@@ -151,10 +150,6 @@ echo <<< _END
                         </table>
                     </div>
                 </div>
-                <input type="hidden" name="att_id" value="$att_id">
-                <input type="hidden" name="students_count" value="$rows">
-                <button type="action" class="btn btn-primary">Сохранить ведомость</button>
-                </form>
                 <hr>
                 <!-- ниже не трогать -->
             </div>
@@ -170,4 +165,7 @@ echo <<< _END
 
 </html>
 _END;
+
+$result->close();
+$conn->close();
 ?>
