@@ -54,7 +54,7 @@ echo <<<_END
 
         <h4>Настройка ведомости</h4>
         <hr>
-        <form method="post" action="define_rep_type.php">
+        <form method="post" action="edit_clear_rep_att.php">
            <div class='row'>
         
             <div class='col-md-12'>
@@ -127,14 +127,6 @@ for ($j = 0 ; $j < $rows ; ++$j)
   echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
 }
 echo <<< _END
-</select>
-<hr>
-<label for="att_type">Выберите тип ведомости</label>
-<select class="form-control" name="att_type">
-    <option>Аттестация</option>
-    <option>Экзамен</option>
-    <option>Зачёт</option>
-    <option>Зачёт с оценкой</option>
 </select>
 <hr>
 

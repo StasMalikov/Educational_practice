@@ -6,11 +6,11 @@ if(!isset($_SESSION['user_name'])){
 }
 
 $user_name=$_SESSION['user_name'];
-$faculty=$_SESSION['faculty'];
-$kurs=$_SESSION['kurs'];
-$class=$_SESSION['group'];
-$subclass=$_SESSION['sub_group'];
-$subject=$_SESSION['subject'];
+$faculty=$_POST['faculty'];
+$kurs=$_POST['kurs'];
+$class=$_POST['group'];
+$subclass=$_POST['sub_group'];
+$subject=$_POST['subject'];
 $point=".";
 if($subclass===""){
     $point='';
