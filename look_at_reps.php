@@ -38,8 +38,8 @@ echo <<< _END
         <div class='col-md-9'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Редактирование уже существующей ведомости' href='find_completed_rep.php'>Редактирование</a></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей' href='look_at_reps.php'>Просмотр</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='find_completed_rep.php'>Редактирование</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Просмотр существующих ведомостей' href='look_at_reps.php'>Просмотр</a></li>
         </ul>
         <hr>
         
@@ -55,7 +55,7 @@ echo <<< _END
         
         </div>
 
-        <h4>Выбор ведомости для редактирования</h4>
+        <h4>Выбор ведомости для просмотра</h4>
         <hr>
         <div class='row'>
             <div class='col-md-12'>
@@ -93,7 +93,7 @@ for ($j = 0 ; $j < $rows ; ++$j)
   
   $row2 = $result2->fetch_array(MYSQLI_ASSOC);
 
-echo '<form method="post" action="edit_completed_rep.php">';
+echo '<form method="post" action="look_at_one_rep.php">';
 
 echo   '<input type="hidden" name="att_id" value="'.htmlspecialchars($row['Id']).'">'; 
 echo '<tr>';
@@ -111,7 +111,7 @@ echo '<td>'.htmlspecialchars($row['Number']).'</td>';
 echo   '<input type="hidden" name="Number" value="'.htmlspecialchars($row['Number']).'">';
 echo '<td>'.substr(htmlspecialchars($row['DateOfEvent']),0,10).'</td>';
 echo   '<input type="hidden" name="DateOfEvent" value="'.htmlspecialchars($row['DateOfEvent']).'">';
-echo '<td><button type="submit" class="btn btn-primary">Редактировать</button></td>';
+echo '<td><button type="submit" class="btn btn-primary">Посмотреть</button></td>';
 echo '</tr>';
 
 echo '</form>';

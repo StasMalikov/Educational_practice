@@ -41,8 +41,8 @@ echo <<< _END
         <div class='col-md-9'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Редактирование уже существующей ведомости' href='find_completed_rep.php'>Редактирование</a></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей' href='look_at_reps.php'>Просмотр</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='find_completed_rep.php'>Редактирование</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Просмотр существующих ведомостей' href='look_at_reps.php'>Просмотр</a></li>
         </ul>
         <hr>
         
@@ -58,7 +58,7 @@ echo <<< _END
         
         </div>
 
-        <h4>Редактирование ведомости</h4>
+        <h4>Просмотр ведомости</h4>
         <hr>
         <form method="post" action="write_edited_rep_to_bd.php">
         <div class='row'>
@@ -144,8 +144,7 @@ for ($j = 0 ; $j < $rows ; ++$j)
   htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Patronymic']).'</td>'.
   '<input type="hidden" name="input_student_'."$j". '"'. 'value="'.htmlspecialchars($row['Id']).'">'.
-  '<td><input type="number" required min=0 max=50 class="form-control" name="input_mark_'."$j".'" 
-  value="'.htmlspecialchars($row['Mark']).'"></td></tr>';
+  '<td><label><b>'.htmlspecialchars($row['Mark']).'</b></label></td></tr>';
 }
 echo <<< _END
 </tbody>
