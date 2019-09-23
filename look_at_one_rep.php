@@ -1,4 +1,5 @@
 <?php
+// просмотр одной ведомости
 session_start();
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');

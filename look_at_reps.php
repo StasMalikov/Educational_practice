@@ -1,4 +1,5 @@
 <?php
+// смотрим список ведомостей, доступных для просмотра
 session_start();
 
 if(!isset($_SESSION['user_name'])){

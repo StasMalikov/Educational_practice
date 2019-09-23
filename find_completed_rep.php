@@ -12,6 +12,7 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+// получаем список аттестаций, которые проводил текущий преподаватель
 $query = "SELECT Name, result.Id,Number,SubjectId,DateOfEvent FROM Subjects JOIN 
 (SELECT Id,Number,SubjectId,DateOfEvent FROM Attestations WHERE LecturerId='$lecturerId')as result
 ON result.SubjectId=Subjects.Id";
@@ -79,12 +80,17 @@ echo <<< _END
                             <tbody>
 _END;
 
+// выводим список ведомостей
+// каждая строчка в таблице это форма с кнопкой
+// при нажатии уходит post запрос с данными о конкретной аттестации
+
 for ($j = 0 ; $j < $rows ; ++$j)
 {
 
   $row = $result->fetch_array(MYSQLI_ASSOC);
   $id=htmlspecialchars($row['Id']);
 
+//   получаем данные о факультете, курсе, группе студентов из аттестации
   $query2 = "SELECT Faculty,Class,Kurs FROM Students JOIN
   (SELECT StudentId FROM Student_Attestation WHERE AttestationId='$id')as result
   ON Students.Id=result.StudentId";

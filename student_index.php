@@ -60,6 +60,7 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+// список предметов по которым у студента есть оценки
 $query  = "SELECT DISTINCT Name FROM Subjects JOIN
 (SELECT SubjectId FROM Student_Subject WHERE StudentId='$StudId')as result  ON 
 result.SubjectId=Subjects.Id";

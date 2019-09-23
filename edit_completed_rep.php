@@ -15,6 +15,7 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+// список студентов, привязанных к выбранной аттестации
 $query = "SELECT Id,Name,Surname,Patronymic,Mark FROM Students JOIN 
 (SELECT StudentId,Mark FROM Student_Attestation WHERE AttestationId='$att_id')as result
 ON Students.Id= result.StudentId ORDER BY Students.Surname";
@@ -134,7 +135,7 @@ _END;
                             </thead>
                             <tbody>
 _END;
-
+// выводим студентов
 for ($j = 0 ; $j < $rows ; ++$j)
 {
   $row = $result->fetch_array(MYSQLI_ASSOC);

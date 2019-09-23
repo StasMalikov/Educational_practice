@@ -13,6 +13,7 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
+// в цикле обновляем поле Mark в таблице student_attestation у всех студентов
 for ($j = 0; $j < $students_count; ++$j) {
     
     $post_id_name = 'input_student_' . "$j";

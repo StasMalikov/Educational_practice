@@ -11,7 +11,7 @@ $subj_name=$_POST['subject'];
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
-
+// загружаем оценки по аттестациям, по выбранному предмету
 $query="SELECT Name,Number, SubjectId, DateOfEvent,AttestationId, Mark FROM Subjects JOIN (SELECT Number, SubjectId, DateOfEvent,AttestationId, Mark FROM
 Attestations JOIN  (SELECT AttestationId, Mark FROM 
 Student_Attestation WHERE StudentID='$StudId') 
@@ -64,7 +64,7 @@ echo <<< _END
             <div class='col-md-12'>
 
                 <div class='row'>
-                <div class='col-md-8'>
+                <div class='col-md-12'>
 _END;
 
 if($rows>0){
@@ -82,7 +82,7 @@ if($rows>0){
 _END;
 }
 
-
+// в таблицу выводим результат запроса
 for ($j = 0 ; $j < $rows ; ++$j)
 {
   $row = $result->fetch_array(MYSQLI_ASSOC);

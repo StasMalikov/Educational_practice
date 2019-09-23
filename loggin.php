@@ -1,8 +1,8 @@
 <?php
+// удаляем данные прошлой сессии
 session_start();
 unset($_SESSION['user_name']);
 unset($_SESSION['Id']);
-unset($_SESSION['type']);
 
 ?>
 <html lang="ru">
