@@ -13,6 +13,13 @@ CREATE TABLE Students
     Password VARCHAR(13)
 );
 
+CREATE TABLE Administrators
+(
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    Login VARCHAR(20) UNIQUE,
+    Password VARCHAR(13)
+);
+
 CREATE TABLE Lecturers
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
