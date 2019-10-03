@@ -57,7 +57,7 @@ if ($result->num_rows != 0)
              if ($crypt_passwd == htmlspecialchars($row['Password'])) 
             {
             $_SESSION['Id']=htmlspecialchars($row['Id']);
-            header('Location: http://localhost/Educational_practice/admin_menu.php');
+            header('Location: http://localhost/Educational_practice/admin_menu_s.php');
             }
         }
             else

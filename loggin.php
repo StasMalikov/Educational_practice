@@ -30,11 +30,11 @@ unset($_SESSION['Id']);
                 <form method="post" action="identify_user.php">
                     <div class="form-group">
                         <label for="login">Логин</label>
-                        <input class="form-control" name="login" aria-describedby="emailHelp" placeholder="Логин" value='Stas@admin'>
+                        <input class="form-control" name="login" aria-describedby="emailHelp" placeholder="Логин" value='stas'>
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
-                        <input type="password" class="form-control" name="password" placeholder="Пароль" value='0000'>
+                        <input type="password" class="form-control" name="password" placeholder="Пароль" value='12345'>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Вход</button>
