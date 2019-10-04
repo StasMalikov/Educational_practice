@@ -1,10 +1,10 @@
 CREATE TABLE Students
 (
     Id INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(10),
-    Surname VARCHAR(10), 
-    Patronymic VARCHAR(10),
-    Faculty VARCHAR(50),
+    Name VARCHAR(15),
+    Surname VARCHAR(15), 
+    Patronymic VARCHAR(15),
+    Faculty VARCHAR(30),
     Kurs CHAR(1),
     Class CHAR(4),
     SubClass CHAR(2),
@@ -23,9 +23,9 @@ CREATE TABLE Administrators
 CREATE TABLE Lecturers
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Name VARCHAR(10),
-    Surname VARCHAR(10), 
-    Patronymic VARCHAR(10),
+	Name VARCHAR(15),
+    Surname VARCHAR(15), 
+    Patronymic VARCHAR(15),
 	Faculty VARCHAR(30),
 	Degree VARCHAR(15),
     Login VARCHAR(20) UNIQUE,
@@ -43,10 +43,10 @@ CREATE TABLE Attestations
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
 	Number CHAR(1),
-        LecturerId INT,
+    LecturerId INT,
 	SubjectId INT,
-        DateOfEvent VARCHAR(10),
-    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+    DateOfEvent VARCHAR(10),
+    FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
 	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
 );
 
@@ -54,49 +54,49 @@ CREATE TABLE Attestations
 CREATE TABLE FinalAttestations
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-        LecturerId INT,
+    LecturerId INT,
 	SubjectId INT,
-        DateOfEvent Date,
+    DateOfEvent Date,
 	Type CHAR(3),
-    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+    FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
 	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
 );
 
 CREATE TABLE Student_Subject
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-        StudentId INT,
+    StudentId INT,
 	SubjectId INT,
-    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+    FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
 );
 
 CREATE TABLE Lecturer_Subject
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-        LecturerId INT,
+    LecturerId INT,
 	SubjectId INT,
-    	FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
+    FOREIGN KEY (LecturerId)  REFERENCES Lecturers (Id),
 	FOREIGN KEY (SubjectId)  REFERENCES Subjects (Id)
 );
 
 CREATE TABLE Student_Attestation
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-        StudentId INT,
+    StudentId INT,
 	AttestationId INT,
 	Mark VARCHAR(2),
-    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+    FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (AttestationId)  REFERENCES Attestations (Id)
 );
 
 CREATE TABLE Student_FinalAttestation
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
-        StudentId INT,
+    StudentId INT,
 	FinalAttestationId INT,
 	Mark VARCHAR(10),
-    	FOREIGN KEY (StudentId)  REFERENCES Students (Id),
+    FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
 );
 
@@ -107,14 +107,3 @@ CREATE TABLE Users
 	Password VARCHAR(20),
 	Type VARCHAR(10)
 );
-
-
-INSERT INTO `students`(`Id`, `Name`, `Surname`, `Patronymic`, `Faculty`, `Kurs`, `Class`, `SubClass`, `Status`, `Gender`)
-VALUES
-(NULL, 'Семён', 'Семёнов', 'Семёнович', 'Факультет Компьютерных наук', '1', '2', '1', 'учащийся', 'м'),
-(NULL, 'Петр', 'Петров', 'Петрович', 'Факультет Компьютерных наук', '3', '4', '1', 'учащийся', 'м'),
-(NULL, 'Борис', 'Борисов', 'Алексеевич', 'Факультет Компьютерных наук', '2', '2', '1', 'учащийся', 'м'),
-(NULL, 'Катя', 'Белова', 'Сергеевна', 'Факультет Компьютерных наук', '2', '2', '1', 'учащийся', 'ж'),
-(NULL, 'Маша', 'Троекурова', 'Павловна', 'Факультет Прикладной математики и механики', '5', '2', '1', 'учащийся', 'ж'),
-(NULL, 'Сергей', 'Орлов', 'Иванович', 'Факультет Прикладной математики и механики', '1', '2', '1', 'учащийся', 'м');
-
