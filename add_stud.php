@@ -1,4 +1,5 @@
 <?php
+                                                    //добавление в базу данных нового студента
 session_start();
 
 // проверка пользователя
@@ -25,13 +26,11 @@ require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
-// ищем в базе данных студентов с введённым логином
 $query  = "INSERT INTO Students VALUES(NULL,'$name','$name_sec','$name_patr','$faculty','$kurs','$class','$subclass','$status','$login','$crypt_passwd')";
 $result = $conn->query($query);
 
 $message='Студент успешно зарегистрирован.';
 if (!$result) {
-    //die ($result->error_log);
     $message='При регистрации возникла ошибка: '. $conn->error;
 }
 

@@ -1,4 +1,5 @@
 <?php
+                                                    //страничка авторизации
 // удаляем данные прошлой сессии
 session_start();
 unset($_SESSION['user_name']);

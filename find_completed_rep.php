@@ -1,4 +1,5 @@
 <?php
+                                                    //страничка с формой выбора ведомости для редактирования
 session_start();
 
 if(!isset($_SESSION['user_name'])){

@@ -1,4 +1,5 @@
 <?php
+                                    //страничка где студент выбирает предмет для просмотра оценок
 session_start();
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+                                                    //страничка с формой выбора факультета и курса создаваемой ведомости
 // проверка пользователя
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');

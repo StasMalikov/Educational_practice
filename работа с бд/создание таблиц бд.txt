@@ -24,8 +24,8 @@ CREATE TABLE Lecturers
 (
 	Id INT PRIMARY KEY AUTO_INCREMENT,
 	Name VARCHAR(10),
-    	Surname VARCHAR(10), 
-    	Patronymic VARCHAR(10),
+    Surname VARCHAR(10), 
+    Patronymic VARCHAR(10),
 	Faculty VARCHAR(30),
 	Degree VARCHAR(15),
     Login VARCHAR(20) UNIQUE,
