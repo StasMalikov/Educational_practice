@@ -4,7 +4,7 @@ CREATE TABLE Students
     Name VARCHAR(15),
     Surname VARCHAR(15), 
     Patronymic VARCHAR(15),
-    Faculty VARCHAR(30),
+    FacultyId INT,
     Kurs CHAR(1),
     Class CHAR(4),
     SubClass CHAR(2),
@@ -13,11 +13,10 @@ CREATE TABLE Students
     Password VARCHAR(13)
 );
 
-CREATE TABLE Faculty
+CREATE TABLE Faculties
 (
     Id INT PRIMARY KEY AUTO_INCREMENT,
-    Login VARCHAR(20) UNIQUE,
-    Password VARCHAR(13)
+    Name VARCHAR(30) UNIQUE
 );
 
 CREATE TABLE Administrators
@@ -33,7 +32,7 @@ CREATE TABLE Lecturers
 	Name VARCHAR(15),
     Surname VARCHAR(15), 
     Patronymic VARCHAR(15),
-	Faculty VARCHAR(30),
+	FacultyId INT,
 	Degree VARCHAR(15),
     Login VARCHAR(20) UNIQUE,
     Password VARCHAR(13)
