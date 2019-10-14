@@ -1,6 +1,6 @@
 <?php
 
-$login='renata@lect';
+$login='admin';
 $password='12345';
 
 

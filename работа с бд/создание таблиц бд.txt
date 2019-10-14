@@ -13,6 +13,13 @@ CREATE TABLE Students
     Password VARCHAR(13)
 );
 
+CREATE TABLE Faculty
+(
+    Id INT PRIMARY KEY AUTO_INCREMENT,
+    Login VARCHAR(20) UNIQUE,
+    Password VARCHAR(13)
+);
+
 CREATE TABLE Administrators
 (
     Id INT PRIMARY KEY AUTO_INCREMENT,
@@ -98,12 +105,4 @@ CREATE TABLE Student_FinalAttestation
 	Mark VARCHAR(10),
     FOREIGN KEY (StudentId)  REFERENCES Students (Id),
 	FOREIGN KEY (FinalAttestationId)  REFERENCES FinalAttestations (Id)
-);
-
-CREATE TABLE Users
-(
-	Id INT PRIMARY KEY AUTO_INCREMENT,
-	Login VARCHAR(20),
-	Password VARCHAR(20),
-	Type VARCHAR(10)
 );
