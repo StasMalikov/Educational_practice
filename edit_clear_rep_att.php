@@ -11,6 +11,7 @@ $faculty=$_POST['faculty'];
 $kurs=$_POST['kurs'];
 $class=$_POST['group'];
 $subclass=$_POST['sub_group'];
+$facultyId=$_POST['facultyId'];
 $subject=$_POST['subject'];
 $point=".";
 if($subclass===""){
@@ -128,7 +129,7 @@ if($subclass==""){
       Subjects.Name='$subject') 
       as result JOIN Students on result.StudentId=Students.Id
       WHERE
-      Students.Kurs='$kurs' AND Students.Faculty='$faculty' AND Students.Class='$class' ORDER BY Students.Surname";
+      Students.Kurs='$kurs' AND Students.FacultyId='$facultyId' AND Students.Class='$class' ORDER BY Students.Surname";
 }else{
     $query  = "SELECT Id,Name,Surname,Patronymic FROM 
     (SELECT StudentId FROM Subjects JOIN
@@ -136,7 +137,7 @@ if($subclass==""){
       Subjects.Name='$subject') 
       as result JOIN Students on result.StudentId=Students.Id
       WHERE
-      Students.Kurs='$kurs' AND Students.Faculty='$faculty' 
+      Students.Kurs='$kurs' AND Students.FacultyId='$facultyId' 
       AND Students.Class='$class' AND Students.SubClass='$subclass' ORDER BY Students.Surname";
 }
 

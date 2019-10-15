@@ -79,8 +79,17 @@ _END;
 require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
+
+$query  = "SELECT Id FROM Faculties WHERE Name='$faculty' ";
+$result = $conn->query($query);
+if (!$result) die("Fatal Error");
+
+$row = $result->fetch_array(MYSQLI_ASSOC);
+$facultyId=htmlspecialchars($row['Id']);
+
+
 // получаем список  групп, для выбранного факультета и курса
-$query  = "SELECT DISTINCT Class FROM Students WHERE Faculty='$faculty' AND Kurs='$kurs' ORDER BY Class";
+$query  = "SELECT DISTINCT Class FROM Students WHERE FacultyId='$facultyId' AND Kurs='$kurs' ORDER BY Class";
 $result = $conn->query($query);
 if (!$result) die("Fatal Error");
 
@@ -120,6 +129,7 @@ echo <<<_END
         </div>
         <hr>
         <input type="hidden" name="faculty" value="$faculty">
+        <input type="hidden" name="facultyId" value="$facultyId">
         <input type="hidden" name="kurs" value="$kurs">
         <input type="hidden" name="user_name" value="$user_name">
         <button type="submit" class="btn btn-primary">Продолжить настройку ведомости</button>

@@ -92,7 +92,7 @@ for ($j = 0 ; $j < $rows ; ++$j)
   $id=htmlspecialchars($row['Id']);
 
 //   получаем данные о факультете, курсе, группе студентов из аттестации
-  $query2 = "SELECT Faculty,Class,Kurs FROM Students JOIN
+  $query2 = "SELECT FacultyId,Class,Kurs FROM Students JOIN
   (SELECT StudentId FROM Student_Attestation WHERE AttestationId='$id')as result
   ON Students.Id=result.StudentId";
   
@@ -101,13 +101,22 @@ for ($j = 0 ; $j < $rows ; ++$j)
   
   $row2 = $result2->fetch_array(MYSQLI_ASSOC);
 
+  $faculty_id=htmlspecialchars($row2['FacultyId']);
+
+  $query3 = "SELECT Name FROM Faculties WHERE Id='$faculty_id' ";
+  
+  $result3 = $conn->query($query3);
+  if (!$result3) die($conn->error);
+  
+  $row3 = $result3->fetch_array(MYSQLI_ASSOC);
+
 echo '<form method="post" action="edit_completed_rep.php">';
 
 echo   '<input type="hidden" name="att_id" value="'.htmlspecialchars($row['Id']).'">'; 
 echo '<tr>';
 
-echo '<td>'.htmlspecialchars($row2['Faculty']).'</td>';
-echo   '<input type="hidden" name="Faculty" value="'.htmlspecialchars($row2['Faculty']).'">';
+echo '<td>'.htmlspecialchars($row3['Name']).'</td>';
+echo   '<input type="hidden" name="Faculty" value="'.htmlspecialchars($row3['Name']).'">';
 
 echo '<td>'.htmlspecialchars($row2['Kurs']).'</td>';
 echo   '<input type="hidden" name="Kurs" value="'.htmlspecialchars($row2['Kurs']).'">';

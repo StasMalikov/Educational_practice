@@ -59,7 +59,7 @@ _END;
  $conn = new mysqli($hn, $user, $password, $database);
  if ($conn->connect_error) die("Fatal Error");
 // Загружаем список факультетов
- $query  = "SELECT DISTINCT Faculty FROM Students";
+ $query  = "SELECT Name FROM Faculties";
  $result = $conn->query($query);
  if (!$result) die("Fatal Error");
 
@@ -69,7 +69,7 @@ _END;
  {
 
    $row = $result->fetch_array(MYSQLI_ASSOC);
-   echo '<option>'   . htmlspecialchars($row['Faculty'])   . '</option>';
+   echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
  }
 
  //закрываем соединение с базой данных

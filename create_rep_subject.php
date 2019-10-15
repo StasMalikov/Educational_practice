@@ -6,6 +6,7 @@ if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');
 }
 $faculty=$_POST['faculty'];
+$facultyId=$_POST['facultyId'];
 $kurs=$_POST['kurs'];
 $class=$_POST['group'];
 $subclass=$_POST['sub_group'];
@@ -97,13 +98,13 @@ if($subclass==""){
     $query  = "SELECT DISTINCT Name FROM 
     (SELECT SubjectId FROM students JOIN
      student_subject ON students.Id=student_subject.StudentId WHERE
-      students.Kurs='$kurs' AND students.Faculty='$faculty' AND Students.Class='$class') 
+      students.Kurs='$kurs' AND students.FacultyId='$facultyId' AND Students.Class='$class') 
       as result JOIN subjects on result.SubjectId=subjects.Id";
 }else{
     $query  = "SELECT DISTINCT Name FROM 
     (SELECT SubjectId FROM students JOIN
      student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs='$kurs' AND 
-     students.Faculty='$faculty' AND Students.Class='$class' AND Students.SubClass='$subclass') 
+     students.FacultyId='$facultyId' AND Students.Class='$class' AND Students.SubClass='$subclass') 
       as result JOIN subjects on result.SubjectId=subjects.Id";
 }
 
@@ -141,6 +142,7 @@ echo <<< _END
 <input type="hidden" name="kurs" value="$kurs">
 <input type="hidden" name="group" value="$class">
 <input type="hidden" name="sub_group" value="$subclass">
+<input type="hidden" name="facultyId" value="$facultyId">
 <input type="hidden" name="user_name" value="$user_name">
 
 <button type="submit" class="btn btn-primary">Создать ведомость</button>
