@@ -1,5 +1,5 @@
 <?php
-                                                    //страничка с формой ввода данных регистрируемого студента
+                                                    //страничка с формой ввода данных регистрируемого преподавателя
 session_start();
 
 // проверка пользователя
@@ -26,16 +26,19 @@ echo <<< _END
         <div class='row'>
         <div class='col-md-9'>
         <ul class='list-inline list-unstyled'>
-            <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg"  href='admin_menu_s.php'>Добавить студента</a></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='admin_menu_l.php'>Добавить преподователя</a></li>
-        </ul>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_stud.php'>Добавить студента</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg"  href='add_lect.php'>Добавить преподавателя</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj.php'>Добавить предмет</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj_stud.php'>Запись студента на предмет</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj_lect.php'>Запись преподавателя на предмет</a></li>
+    </ul>
         <hr>
         
         </div>
         <div class='col-md-3' align='right'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='loggin.php'>Выход</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../loggin.php'>Выход</a></li>
         </ul>
         <hr>
         
@@ -43,12 +46,12 @@ echo <<< _END
         
         </div>
         
-        <h4>Регистрация нового студента</h4>
+        <h4>Регистрация нового преподавателя</h4>
 
         <div class='row'>
 
             <div class='col-md-6'>
-                <form method="post" action="add_stud.php">
+                <form method="post" action="write_lect_to_bd.php">
 
                 <label>Имя</label>
                 <input type="text" maxlength='10' required class="form-control" name="name"  placeholder="Имя">
@@ -60,19 +63,29 @@ echo <<< _END
                 <input type="text" maxlength='10' required class="form-control" name="name_patronic"  placeholder="Отчество">
                 
                 <label>Факультет</label>
-                <input type="text" maxlength='50' required class="form-control" name="faculty"  placeholder="Факультет">
+                <select class="form-control" name="faculty">
 
-                <label>Курс</label>
-                <input type="number" min=0 max=6 required class="form-control" name="kurs"  placeholder="Курс">
+_END;
+require_once '../login.php';
+$conn = new mysqli($hn, $user, $password, $database);
+if ($conn->connect_error) die("Fatal Error");
+// Загружаем список факультетов
+$query  = "SELECT Name FROM Faculties";
+$result = $conn->query($query);
+if (!$result) die("Fatal Error");
 
-                <label>Группа</label>
-                <input type="text" maxlength='4' required class="form-control" name="class"  placeholder="Группа">
+$rows = $result->num_rows;
+// в цикле выводим этот список
+for ($j = 0 ; $j < $rows ; ++$j)
+{
 
-                <label>Подгруппа</label>
-                <input type="number" min=1 max=2 required class="form-control" name="subclass"  placeholder="Подгруппа">
-
-                <label>Статус</label>
-                <input type="text" maxlength='10' required class="form-control" name="status"  placeholder="Статус">
+  $row = $result->fetch_array(MYSQLI_ASSOC);
+  echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
+}
+echo <<< _END
+</select>
+                <label>Учёная степень</label>
+                <input type="text" maxlength='15' required class="form-control" name="degree"  placeholder="Учёная степень">
 
                 <label>Логин</label>
                 <input type="text" maxlength='20' required class="form-control" name="login"  placeholder="Логин">

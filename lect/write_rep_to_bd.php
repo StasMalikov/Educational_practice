@@ -14,7 +14,7 @@ $subj_name = $_POST['subject'];
 $att_date = $_POST['date'];
 $students_count = $_POST['students_count'];
 
-require_once 'login.php';
+require_once '../login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
@@ -75,7 +75,7 @@ $subj_id = htmlspecialchars($row['Id']);
             <div class='col-md-3' align='right'>
             <ul class='list-inline list-unstyled'>
                 <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-                <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='loggin.php'>Выход</a></li>
+                <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../loggin.php'>Выход</a></li>
             </ul>
             <hr>
             

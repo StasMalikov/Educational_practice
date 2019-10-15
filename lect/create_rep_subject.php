@@ -48,7 +48,7 @@ echo <<<_END
         <div class='col-md-3' align='right'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='loggin.php'>Выход</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../loggin.php'>Выход</a></li>
         </ul>
         <hr>
         
@@ -88,7 +88,7 @@ echo <<<_END
 _END;
 
 
-require_once 'login.php';
+require_once '../login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 // получаем список дисциплин для с учётом курса, группы, подгруппы(или полной группы) ((subclass=подгруппа))

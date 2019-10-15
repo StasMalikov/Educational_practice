@@ -1,37 +1,29 @@
 <?php
-                                                    //страничка с формой редактирования уже существующей ведомости
+                                                    //страничка с формой заполнения только что созданной ведомости
 session_start();
+
 if(!isset($_SESSION['user_name'])){
     header('Location: http://localhost/Educational_practice/loggin.php');
 }
+
 $user_name=$_SESSION['user_name'];
-  $att_id= $_POST['att_id'];
-  $Date=$_POST['DateOfEvent'];
-  $Number=$_POST['Number'];
-  $Faculty= $_POST['Faculty'];
-  $Subj=$_POST['Name'];
-  $Kurs=$_POST['Kurs'];
-  $Class=$_POST['Class'];
-require_once 'login.php';
-$conn = new mysqli($hn, $user, $password, $database);
-if ($conn->connect_error) die("Fatal Error");
-
-// список студентов, привязанных к выбранной аттестации
-$query = "SELECT Id,Name,Surname,Patronymic,Mark FROM Students JOIN 
-(SELECT StudentId,Mark FROM Student_Attestation WHERE AttestationId='$att_id')as result
-ON Students.Id= result.StudentId ORDER BY Students.Surname";
-
-$result = $conn->query($query);
-if (!$result) die($conn->error);
-
-$rows = $result->num_rows;
+$faculty=$_POST['faculty'];
+$kurs=$_POST['kurs'];
+$class=$_POST['group'];
+$subclass=$_POST['sub_group'];
+$facultyId=$_POST['facultyId'];
+$subject=$_POST['subject'];
+$point=".";
+if($subclass===""){
+    $point='';
+}
 
 echo <<< _END
 <html lang="ru">
 
 <head>
-<title>Аттестационная ведомость онлайн</title>
     <meta charset="utf-8">
+    <title>Аттестационная ведомость онлайн</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -53,7 +45,7 @@ echo <<< _END
         <div class='col-md-3' align='right'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='loggin.php'>Выход</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../loggin.php'>Выход</a></li>
         </ul>
         <hr>
         
@@ -61,9 +53,9 @@ echo <<< _END
         
         </div>
 
-        <h4>Редактирование ведомости</h4>
+        <h4>Заполнение ведомости</h4>
         <hr>
-        <form method="post" action="write_edited_rep_to_bd.php">
+        <form method="post" action="write_rep_to_bd.php">
         <div class='row'>
 
             <div class='col-md-12'>
@@ -74,7 +66,7 @@ echo <<< _END
                         <label>Дисциплина</label>
                     </div>
                     <div class='col-md-2'>
-                        <label><b id='subject'>$Subj</b></label>
+                        <label><b id='subject'>$subject</b></label>
                     </div>
 
 
@@ -82,7 +74,11 @@ echo <<< _END
                     </div>
                     <div class='col-md-1'>
 
-                    <label><b>$Number</b></label>
+                        <select class="form-control" name="report_number">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
 
                     </div>
 
@@ -90,12 +86,7 @@ echo <<< _END
                         <label for="date">Дата</label>
                     </div>
                     <div class='col-md-2'>
-                    <label><b>
-_END;
-
-                   echo substr($Date,0,10);
-                    echo <<< _END
-                    </b></label>
+                        <input type="date" class="form-control" name="date">
                     </div>
                 </div>
 
@@ -105,27 +96,67 @@ _END;
                         <label>Факультет</label>
                     </div>
                     <div class='col-md-2'>
-                        <label><b id='faculty'>$Faculty</b></label>
+                        <label><b id='faculty'>$faculty</b></label>
                     </div>
 
                     <div class='col-md-2'>
                         <label>Курс</label>
                     </div>
                     <div class='col-md-1'>
-                        <label><b id='kurs'>$Kurs</b></label>
+                        <label><b id='kurs'>$kurs</b></label>
                     </div>
 
                     <div class='col-md-1'>
                         <label>Группа</label>
                     </div>
                     <div class='col-md-1'>
-                        <label><b id='group'>$Class</b></label>
+                        <label><b id='group'>$class$point$subclass</b></label>
                     </div>
                 </div>
 
                 <hr>
-                <div class='row'>
-                    <div class='col-md-12'>
+_END;
+
+require_once '../login.php';
+$conn = new mysqli($hn, $user, $password, $database);
+if ($conn->connect_error) die("Fatal Error");
+
+//получаем список студентов для выбранного предмета на основании данных с предыдущих страниц
+if($subclass==""){
+    $query  = "SELECT Id,Name,Surname,Patronymic FROM 
+    (SELECT StudentId FROM Subjects JOIN
+     student_subject ON student_subject.SubjectId=Subjects.Id WHERE
+      Subjects.Name='$subject') 
+      as result JOIN Students on result.StudentId=Students.Id
+      WHERE
+      Students.Kurs='$kurs' AND Students.FacultyId='$facultyId' AND Students.Class='$class' ORDER BY Students.Surname";
+}else{
+    $query  = "SELECT Id,Name,Surname,Patronymic FROM 
+    (SELECT StudentId FROM Subjects JOIN
+     student_subject ON student_subject.SubjectId=Subjects.Id WHERE
+      Subjects.Name='$subject') 
+      as result JOIN Students on result.StudentId=Students.Id
+      WHERE
+      Students.Kurs='$kurs' AND Students.FacultyId='$facultyId' 
+      AND Students.Class='$class' AND Students.SubClass='$subclass' ORDER BY Students.Surname";
+}
+
+$result = $conn->query($query);
+if (!$result) die($conn->error);
+
+$rows = $result->num_rows;
+if($rows==0){
+    echo <<< _END
+     <div class="alert alert-primary" role="alert" align='center'>
+  Отсутствуют данные для формирования ведомости, попробуйте указать другие данные на <a href="create_rep_faculty.php" class="alert-link">вкладке</a>
+    </div>'
+_END;
+
+}else
+{
+echo <<< _END
+<div class='row'>
+                    <div class='col-md-8'>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -136,7 +167,10 @@ _END;
                             </thead>
                             <tbody>
 _END;
-// выводим студентов
+
+// выводим студентов в таблицу
+// при этом прячем id студентов в скрытый input, который будет отправлен post запросом
+
 for ($j = 0 ; $j < $rows ; ++$j)
 {
   $row = $result->fetch_array(MYSQLI_ASSOC);
@@ -147,16 +181,23 @@ for ($j = 0 ; $j < $rows ; ++$j)
   htmlspecialchars($row['Name']).' '.
   htmlspecialchars($row['Patronymic']).'</td>'.
   '<input type="hidden" name="input_student_'."$j". '"'. 'value="'.htmlspecialchars($row['Id']).'">'.
-  '<td><input type="number" required min=0 max=50 class="form-control" name="input_mark_'."$j".'" 
-  value="'.htmlspecialchars($row['Mark']).'"></td></tr>';
+  '<td><input type="number" required min=0 max=50 class="form-control" name="input_mark_'."$j".'"></td></tr>';
+//   <tr>
+//   <th scope="row">1</th>
+//   <td>Иванов Иван Иванович</td>
+//   <input type="hidden" name="input_student_0" value="212">
+//   <td><input type="number" min=0 max=50 class="form-control" id="input_mark_0"></td>
+// </tr>
 }
+
 echo <<< _END
 </tbody>
                         </table>
                     </div>
                 </div>
-                <input type="hidden" name="att_id" value="$att_id">
+                <input type="hidden" name="subject" value="$subject">
                 <input type="hidden" name="students_count" value="$rows">
+
                 <button type="action" class="btn btn-primary">Сохранить ведомость</button>
                 </form>
                 <hr>
@@ -174,6 +215,7 @@ echo <<< _END
 
 </html>
 _END;
+}
 $result->close();
 $conn->close();
 ?>

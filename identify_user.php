@@ -13,7 +13,7 @@ $_SESSION['user_name'] = $login;
 // получаем хеш пароля введённого пользователем на форме, логин используем как соль(модификатор)
 $crypt_passwd = crypt($pswd, $login);
 
-require_once 'login.php';
+require_once '../login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
@@ -28,7 +28,7 @@ if ($result->num_rows != 0)
     if ($crypt_passwd == htmlspecialchars($row['Password'])) 
     {
         $_SESSION['Id']=htmlspecialchars($row['Id']);
-        header('Location: http://localhost/Educational_practice/student_index.php');
+        header('Location: http://localhost/Educational_practice/stud/student_index.php');
     }
 }
 else{
@@ -45,7 +45,7 @@ if ($result->num_rows != 0)
         if ($crypt_passwd == htmlspecialchars($row['Password'])) 
         {
             $_SESSION['Id']=htmlspecialchars($row['Id']);
-            header('Location: http://localhost/Educational_practice/create_rep_faculty.php');
+            header('Location: http://localhost/Educational_practice/lect/create_rep_faculty.php');
         }
 }else   
     {
@@ -60,7 +60,7 @@ if ($result->num_rows != 0)
              if ($crypt_passwd == htmlspecialchars($row['Password'])) 
             {
             $_SESSION['Id']=htmlspecialchars($row['Id']);
-            header('Location: http://localhost/Educational_practice/admin_menu_s.php');
+            header('Location: http://localhost/Educational_practice/admin/add_stud.php');
             }
         }
             else
