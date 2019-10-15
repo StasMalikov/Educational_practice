@@ -56,7 +56,7 @@ echo <<< _END
         <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg"  href='add_stud.php'>Добавить студента</a></li>
         <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_lect.php'>Добавить преподавателя</a></li>
         <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj.php'>Добавить предмет</a></li>
-        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj_stud.php'>Запись студента на предмет</a></li>
+        <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj_stud.php'>Запись студентов на предмет</a></li>
         <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg"  href='add_subj_lect.php'>Запись преподавателя на предмет</a></li>
         </ul>
         <hr>
