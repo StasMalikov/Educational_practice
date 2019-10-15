@@ -40,7 +40,8 @@ echo <<< _END
         <div class='row'>
             <div class='col-md-9'>
                 <ul class='list-inline list-unstyled'>
-                    <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Главная' href='student_index.php'>Просмотр ведомости</a></li>
+                <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Главная' href='student_index.php'>Главная страница</a></li>
+                    <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Главная' href='choose_subj.php'>Просмотр ведомости</a></li>
                 </ul>
                 <hr>
 
@@ -99,7 +100,7 @@ echo '</tr>';
 if($rows==0){
 echo <<< _END
 <div class="alert alert-primary" role="alert" align='center'>
-  Отсутствуют ведомости по выбранному предмету, попробуйте указать другие данные на предыдущей  <a href="student_index.php" class="alert-link">вкладке</a>
+  Отсутствуют ведомости по выбранному предмету, попробуйте указать другие данные на предыдущей  <a href="choose_subj.php" class="alert-link">вкладке</a>
     </div>
 _END;
 }
