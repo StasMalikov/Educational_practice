@@ -1,4 +1,11 @@
-<!doctype html>
+<?php
+                                                    //страничка авторизации
+// удаляем данные прошлой сессии
+session_start();
+unset($_SESSION['user_name']);
+unset($_SESSION['Id']);
+
+?>
 <html lang="ru">
 
 <head>
@@ -22,9 +29,17 @@
                 <hr>
 
                 <form method="post" action="identify_user.php">
-                    <div class="alert alert-info" role="alert">
+<?php 
+if(isset($_SESSION['message']))
+ {
+echo <<< _END
+                        <div class="alert alert-info" role="alert">
                         Неправильный логин или пароль
                     </div>
+_END;
+    unset($_SESSION['message']);
+ }
+?>
                     <div class="form-group">
                         <label for="login">Логин</label>
                         <input class="form-control" name="login" aria-describedby="emailHelp" placeholder="Логин" value='stas'>

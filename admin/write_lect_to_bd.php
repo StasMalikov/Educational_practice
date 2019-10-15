@@ -4,7 +4,7 @@ session_start();
 
 // проверка пользователя
 if(!isset($_SESSION['user_name'])){
-    header('Location: http://localhost/Educational_practice/loggin.php');
+    header('Location: http://localhost/Educational_practice/index.php');
 }
 $user_name=$_SESSION['user_name'];
 
@@ -62,7 +62,7 @@ echo <<< _END
         <div class='col-md-3' align='right'>
         <ul class='list-inline list-unstyled'>
             <li class="list-inline-item"><button type="button" class="btn btn btn-outline-primary btn-lg" disabled>$user_name</button></li>
-            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../loggin.php'>Выход</a></li>
+            <li class="list-inline-item"><a role="button" class="btn btn-outline-danger btn-lg" href='../index.php'>Выход</a></li>
         </ul>
         <hr>
         

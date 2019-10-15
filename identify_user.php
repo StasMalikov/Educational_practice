@@ -10,10 +10,11 @@ session_start();
 $_SESSION['user_name'] = $login;
 
 
+
 // получаем хеш пароля введённого пользователем на форме, логин используем как соль(модификатор)
 $crypt_passwd = crypt($pswd, $login);
 
-require_once '../login.php';
+require_once 'login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
@@ -67,8 +68,8 @@ if ($result->num_rows != 0)
             {
             $result->close();
             $conn->close();
-    
-             header('Location: http://localhost/Educational_practice/loggin_notification.html');
+            $_SESSION['message']='Неправильно введён логин или пароль.';
+             header('Location: http://localhost/Educational_practice/index.php');
             }
     }
 }
