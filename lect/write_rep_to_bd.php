@@ -65,7 +65,7 @@ $subj_id = htmlspecialchars($row['Id']);
             <div class='row'>
             <div class='col-md-9'>
             <ul class='list-inline list-unstyled'>
-                <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
+                <li class="list-inline-item"><a role="button" class="btn btn-info btn-lg" title='Создание новой ведомости' href='create_rep_faculty.php'>Добавление</a></li>
                 <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Редактирование уже существующей ведомости' href='find_completed_rep.php'>Редактирование</a></li>
                 <li class="list-inline-item"><a role="button" class="btn btn-link btn-lg" title='Просмотр существующих ведомостей' href='look_at_reps.php'>Просмотр</a></li>
             </ul>
@@ -94,7 +94,4 @@ $subj_id = htmlspecialchars($row['Id']);
     
     </html>
 _END;
-
-$result->close();
-$conn->close();
  ?>

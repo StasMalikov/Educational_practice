@@ -115,8 +115,8 @@ $rows = $result->num_rows;
 if($rows==0){
     echo <<< _END
      <div class="alert alert-primary" role="alert" align='center'>
-  Отсутствуют данные для формирования ведомости, попробуйте указать другие данные на предыдущей  <a href="create_rep_groups.php" class="alert-link">вкладке</a>
-    </div>'
+  Отсутствуют данные для формирования ведомости, попробуйте указать другие данные на предыдущей  вкладке
+    </div>
 _END;
 
 }else

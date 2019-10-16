@@ -13,7 +13,7 @@ require_once '../login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
-$query = "SELECT Name, result.Id,Number,SubjectId,DateOfEvent FROM Subjects JOIN 
+$query = "SELECT DISTINCT Name FROM Subjects JOIN 
 (SELECT Id,Number,SubjectId,DateOfEvent FROM Attestations WHERE LecturerId='$lecturerId')as result
 ON result.SubjectId=Subjects.Id";
 
@@ -62,7 +62,24 @@ echo <<< _END
         <div class='row'>
             <div class='col-md-12'>
 
-                <div class='row'>
+            <div class='row'>
+            <form class="form-inline" method="post" action="look_at_reps_sort.php">
+            <div class="form-group mx-sm-3 mb-2">
+            <select class="form-control" name="subject">
+            <option>-</option>
+_END;
+for ($j = 0 ; $j < $rows ; ++$j)
+{
+$row = $result->fetch_array(MYSQLI_ASSOC);
+echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
+}
+echo <<< _END
+</select>
+</div>
+<div class="form-group mx-sm-3 mb-2">
+<button type="submit" class="btn btn-primary">Показать</button>
+</div>
+</form>
 
                 <!-- таблица -->
                 <table class="table">
@@ -79,6 +96,15 @@ echo <<< _END
                             </thead>
                             <tbody>
 _END;
+
+$query = "SELECT Name, result.Id,Number,SubjectId,DateOfEvent FROM Subjects JOIN 
+(SELECT Id,Number,SubjectId,DateOfEvent FROM Attestations WHERE LecturerId='$lecturerId')as result
+ON result.SubjectId=Subjects.Id order by DateOfEvent DESC limit 30";
+
+$result = $conn->query($query);
+if (!$result) die($conn->error);
+
+$rows = $result->num_rows;
 
 for ($j = 0 ; $j < $rows ; ++$j)
 {

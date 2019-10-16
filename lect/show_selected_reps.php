@@ -8,15 +8,20 @@ if(!isset($_SESSION['user_name'])){
 
 $user_name=$_SESSION['user_name'];
 $lecturerId = $_SESSION['Id'];
+$subject=$_POST['subject'];
+if($subject=='-'){
+    header('Location: http://localhost/Educational_practice/lect/find_completed_rep.php');
+}
+
 
 require_once '../login.php';
 $conn = new mysqli($hn, $user, $password, $database);
 if ($conn->connect_error) die("Fatal Error");
 
 // получаем список аттестаций, которые проводил текущий преподаватель
-$query = "SELECT DISTINCT Name FROM Subjects JOIN 
+$query = "SELECT Name, result.Id,Number,SubjectId,DateOfEvent FROM Subjects JOIN 
 (SELECT Id,Number,SubjectId,DateOfEvent FROM Attestations WHERE LecturerId='$lecturerId')as result
-ON result.SubjectId=Subjects.Id";
+ON result.SubjectId=Subjects.Id WHERE Subjects.Name='$subject' order by DateOfEvent DESC limit 30";
 
 $result = $conn->query($query);
 if (!$result) die($conn->error);
@@ -64,23 +69,7 @@ echo <<< _END
             <div class='col-md-12'>
 
                 <div class='row'>
-                <form class="form-inline" method="post" action="show_selected_reps.php">
-                <div class="form-group mx-sm-3 mb-2">
-                <select class="form-control" name="subject">
-                <option>-</option>
-_END;
-for ($j = 0 ; $j < $rows ; ++$j)
-{
-  $row = $result->fetch_array(MYSQLI_ASSOC);
-  echo '<option>'   . htmlspecialchars($row['Name'])   . '</option>';
-}
-echo <<< _END
-</select>
-</div>
-<div class="form-group mx-sm-3 mb-2">
-<button type="submit" class="btn btn-primary">Показать</button>
-</div>
-</form>
+
                 <!-- таблица -->
                 <table class="table">
                             <thead>
@@ -97,14 +86,6 @@ echo <<< _END
                             <tbody>
 _END;
 
-$query = "SELECT Name, result.Id,Number,SubjectId,DateOfEvent FROM Subjects JOIN 
-(SELECT Id,Number,SubjectId,DateOfEvent FROM Attestations WHERE LecturerId='$lecturerId')as result
-ON result.SubjectId=Subjects.Id order by DateOfEvent DESC limit 15";
-
-$result = $conn->query($query);
-if (!$result) die($conn->error);
-
-$rows = $result->num_rows;
 // выводим список ведомостей
 // каждая строчка в таблице это форма с кнопкой
 // при нажатии уходит post запрос с данными о конкретной аттестации
