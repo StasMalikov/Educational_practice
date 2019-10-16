@@ -11,7 +11,7 @@ $kurs=$_POST['kurs'];
 $class=$_POST['group'];
 $subclass=$_POST['sub_group'];
 $user_name=$_SESSION['user_name'];
-
+$lecturerId = $_SESSION['Id'];
 // работа с отображением или неотображением подгруппы
 $point=".";
 if($subclass==="-"){
@@ -99,13 +99,17 @@ if($subclass==""){
     (SELECT SubjectId FROM students JOIN
      student_subject ON students.Id=student_subject.StudentId WHERE
       students.Kurs='$kurs' AND students.FacultyId='$facultyId' AND Students.Class='$class') 
-      as result JOIN subjects on result.SubjectId=subjects.Id";
+      as result JOIN ((SELECT Name, Id FROM  
+    (SELECT SubjectId FROM Lecturer_Subject WHERE LecturerId='$lecturerId')as res
+    JOIN Subjects ON res.SubjectId = Subjects.Id)) as lect_subjects on result.SubjectId=lect_subjects.Id";
 }else{
     $query  = "SELECT DISTINCT Name FROM 
     (SELECT SubjectId FROM students JOIN
      student_subject ON students.Id=student_subject.StudentId WHERE students.Kurs='$kurs' AND 
      students.FacultyId='$facultyId' AND Students.Class='$class' AND Students.SubClass='$subclass') 
-      as result JOIN subjects on result.SubjectId=subjects.Id";
+      as result JOIN ((SELECT Name, Id FROM  
+    (SELECT SubjectId FROM Lecturer_Subject WHERE LecturerId='$lecturerId')as res
+    JOIN Subjects ON res.SubjectId = Subjects.Id)) as lect_subjects on result.SubjectId=lect_subjects.Id";
 }
 
 $result = $conn->query($query);
